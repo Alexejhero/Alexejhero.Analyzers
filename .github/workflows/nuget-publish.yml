@@ -1,0 +1,32 @@
+name: Publish to NuGet
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_NOLOGO: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.x
+
+      - name: Pack NuGet package
+        run: dotnet pack Alexejhero.Analyzers/Alexejhero.Analyzers.csproj -c Release -o out --version-suffix "ci.${{ github.run_number }}"
+
+      - name: Push NuGet package
+        uses: edumserrano/nuget-push@v1.2.2
+        with:
+          api-key: ${{ secrets.NUGET_API_KEY }}
+          working-directory: out
