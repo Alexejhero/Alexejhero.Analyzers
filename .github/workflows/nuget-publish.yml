@@ -30,3 +30,10 @@ jobs:
         with:
           api-key: ${{ secrets.NUGET_API_KEY }}
           working-directory: out
+      
+      - name: Unlist NuGet package
+        uses: darenm/unlist-nuget@v1
+        with:
+          NUGET_PACKAGE: Alexejhero.Analyzers
+          VERSION_REGEX: ^.*-ci.${{ github.run_number }}$
+          NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
