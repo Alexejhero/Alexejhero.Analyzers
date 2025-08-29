@@ -31,6 +31,23 @@ jobs:
           api-key: ${{ secrets.NUGET_API_KEY }}
           working-directory: out
       
+      - name: Wait for NuGet package to be published
+        shell: bash
+        run: |
+          VERSION_SUFFIX="ci.${{ github.run_number }}"
+          URL="https://api.nuget.org/v3-flatcontainer/Alexejhero.Analyzers/index.json"
+          echo "Waiting for package version suffix $VERSION_SUFFIX to be listed on NuGet..."
+          for i in {1..90}; do
+            if curl -s "$URL" | grep -q "$VERSION_SUFFIX"; then
+              echo "Found package $VERSION_SUFFIX"
+              exit 0
+            fi
+            echo "Package not yet available, retrying in 10 seconds..."
+            sleep 10
+          done
+          echo "Timed out waiting for package to be published"
+          exit 1
+      
       - name: Unlist NuGet package
         uses: darenm/unlist-nuget@v1
         with:
