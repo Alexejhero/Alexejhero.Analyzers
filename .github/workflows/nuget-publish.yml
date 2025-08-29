@@ -30,7 +30,7 @@ jobs:
         with:
           api-key: ${{ secrets.NUGET_API_KEY }}
           working-directory: out
-      
+
       - name: Wait for NuGet package to be published
         shell: bash
         run: |
@@ -47,7 +47,7 @@ jobs:
           done
           echo "Timed out waiting for package to be published"
           exit 1
-      
+
       - name: Unlist NuGet package
         uses: darenm/unlist-nuget@v1
         with:
