@@ -6,7 +6,9 @@
         <LangVersion>latest</LangVersion>
 
         <IsPackable>true</IsPackable>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
         <VersionPrefix>0.1.1</VersionPrefix>
+        <PackageType>Analyzer</PackageType>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageReadmeFile>README.md</PackageReadmeFile>
 
