@@ -35,7 +35,7 @@ jobs:
         shell: bash
         run: |
           VERSION_SUFFIX="ci.${{ github.run_number }}"
-          URL="https://api.nuget.org/v3-flatcontainer/Alexejhero.Analyzers/index.json"
+          URL="https://api.nuget.org/v3-flatcontainer/alexejhero.analyzers/index.json"
           echo "Waiting for package version suffix $VERSION_SUFFIX to be listed on NuGet..."
           for i in {1..90}; do
             if curl -s "$URL" | grep -q "$VERSION_SUFFIX"; then
@@ -51,6 +51,6 @@ jobs:
       - name: Unlist NuGet package
         uses: darenm/unlist-nuget@v1
         with:
-          NUGET_PACKAGE: Alexejhero.Analyzers
+          NUGET_PACKAGE: alexejhero.analyzers
           VERSION_REGEX: ^.*-ci.${{ github.run_number }}$
           NUGET_KEY: ${{ secrets.NUGET_API_KEY }}
