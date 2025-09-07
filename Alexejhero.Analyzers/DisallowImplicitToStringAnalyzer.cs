@@ -20,7 +20,7 @@ public sealed class DisallowImplicitToStringAnalyzer : DiagnosticAnalyzer
         defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true);
 
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = [_rule];
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = new() {_rule};
 
     public override void Initialize(AnalysisContext context)
     {
